@@ -16,8 +16,8 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
   // 当前选中的bar
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews = new List();
-  List<StatelessWidget> _pageList;
-  StatelessWidget _currentPage;
+  List<StatefulWidget> _pageList;
+  StatefulWidget _currentPage;
 
   List<String> appBarTitles = ['首页', '理财', '白条', '众筹'];
   List<String> appBarIcons = ['images/home.png','images/money.png',
@@ -48,7 +48,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
       _navigationViews[_currentIndex].controller.value = 1.0;
     }
 
-    _pageList = <StatelessWidget>[
+    _pageList = <StatefulWidget>[
       new HomePage(),
       new MoneyPage(),
       new IousPage(),
@@ -108,6 +108,14 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
 
     return MaterialApp(
         home: new Scaffold(
+            appBar: new AppBar(
+              title: new Text(
+                appBarTitles[_currentIndex],
+                style: TextStyle(color: Colors.black),
+              ),
+              backgroundColor: Colors.white,
+
+            ),
             body: new Center(
               child: _currentPage,
             ),
