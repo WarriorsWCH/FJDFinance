@@ -9,33 +9,33 @@ class SliderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       // 限制轮播图高度
       constraints: BoxConstraints.expand(
         height: imgHeight,
       ),
-      child: new Swiper(
+      child: Swiper(
         itemBuilder: (BuildContext context,int index){
-          return new Image.network(imgs[index],fit: BoxFit.fill,);
+          return Image.network(imgs[index],fit: BoxFit.fill,);
         },
         itemCount: 3,
-        // 设置 new SwiperPagination() 展示默认分页指示器
-        pagination: new SwiperPagination(
-            margin: new EdgeInsets.all(0.0),
-            builder: new SwiperCustomPagination(builder:
+        // 设置 SwiperPagination() 展示默认分页指示器
+        pagination: SwiperPagination(
+            margin: EdgeInsets.all(0.0),
+            builder: SwiperCustomPagination(builder:
                 (BuildContext context, SwiperPluginConfig config) {
 
               // 这个控件的作用是添加额外的限制条件（constraints）到child上
-              return new ConstrainedBox(
+              return ConstrainedBox(
                 // 分期控制器的高度
-                constraints: new BoxConstraints.expand(height: 15.0),
-                child: new Row(
+                constraints: BoxConstraints.expand(height: 15.0),
+                child: Row(
                   children: <Widget>[
-                    new Expanded(
-                      child: new Align(
+                    Expanded(
+                      child: Align(
                         alignment: Alignment.center,
                         // 分页控制器
-                        child: new DotSwiperPaginationBuilder(
+                        child: DotSwiperPaginationBuilder(
                                 color: Colors.black12,
                                 activeColor: const Color(0xFF007aff),
                                 size: 5.0,

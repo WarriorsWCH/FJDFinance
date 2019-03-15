@@ -8,14 +8,14 @@ import 'navigation_icon_view.dart';
 
 class Index extends StatefulWidget {
   @override
-  State<Index> createState() => new _IndexState();
+  State<Index> createState() => _IndexState();
 }
 
 class _IndexState extends State<Index> with TickerProviderStateMixin {
 
   // 当前选中的bar
   int _currentIndex = 0;
-  List<NavigationIconView> _navigationViews = new List();
+  List<NavigationIconView> _navigationViews = List();
   List<StatefulWidget> _pageList;
   StatefulWidget _currentPage;
 
@@ -34,9 +34,9 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
     super.initState();
     // 循环存储NavigationIconView类的列表里添加内容
     for (var i = 0; i < 4; i++) {
-      _navigationViews.add(new NavigationIconView(
-        icon: new Image.asset(appBarIcons[i], width: 24.0, height: 24.0),
-        title: new Text(appBarTitles[i]),
+      _navigationViews.add(NavigationIconView(
+        icon: Image.asset(appBarIcons[i], width: 24.0, height: 24.0),
+        title: Text(appBarTitles[i]),
         vsync: this,
       ));
     }
@@ -49,10 +49,10 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
     }
 
     _pageList = <StatefulWidget>[
-      new HomePage(),
-      new MoneyPage(),
-      new IousPage(),
-      new RaisePage()
+      HomePage(),
+      MoneyPage(),
+      IousPage(),
+      RaisePage()
     ];
     _currentPage =_pageList[_currentIndex];
   }
@@ -78,7 +78,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // 局部变量，创建底部导航栏
-    final BottomNavigationBar bottomNavigationBar = new BottomNavigationBar(
+    final BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
       /*
       * 在底部导航栏中布置的交互项：迭代存储NavigationIconView类的列表
       * 返回此迭代的每个元素的底部导航栏项目
@@ -107,16 +107,16 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
     );
 
     return MaterialApp(
-        home: new Scaffold(
-            appBar: new AppBar(
-              title: new Text(
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text(
                 appBarTitles[_currentIndex],
                 style: TextStyle(color: Colors.black),
               ),
               backgroundColor: Colors.white,
 
             ),
-            body: new Center(
+            body: Center(
               child: _currentPage,
             ),
             bottomNavigationBar: bottomNavigationBar,

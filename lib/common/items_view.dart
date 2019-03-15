@@ -7,32 +7,52 @@ class ItemsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       padding: EdgeInsets.fromLTRB(0, 20.0, 0, 10.0),
       color: Colors.white,
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: buildItem(),
+        children: List.generate(items.length, (index) {
+          return ConstrainedBox(
+            // 限制每个item的宽高
+            constraints: BoxConstraints.expand(
+              width: 64.0, 
+              height: 67.0
+            ),
+            child: Column(
+              // flex -> just-content -> spaceBetween
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Image.network(items[index].img,width: 45.0, height: 45.0),
+                Text(
+                  items[index].text,
+                  style: TextStyle(fontSize: 13.0),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
 
-  List<Widget> buildItem() {
-    List<Widget> list = new List();
+  List<Widget> _buildItem() {
+    List<Widget> list = List();
     for (var i = 0; i < items.length; i++) {
-      list.add(new ConstrainedBox(
+      list.add(ConstrainedBox(
         // 限制每个item的宽高
-        constraints: new BoxConstraints.expand(
+        constraints: BoxConstraints.expand(
           width: 64.0, 
           height: 67.0
         ),
-        child: new Column(
+        child: Column(
+          // flex -> just-content -> spaceBetween
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            new Image.network(items[i].img,width: 45.0, height: 45.0),
-            new Text(
+            Image.network(items[i].img,width: 45.0, height: 45.0),
+            Text(
               items[i].text,
-              style: new TextStyle(fontSize: 13.0),
+              style: TextStyle(fontSize: 13.0),
             )
           ],
         ),

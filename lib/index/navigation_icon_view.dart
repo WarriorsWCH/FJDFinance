@@ -20,21 +20,21 @@ class NavigationIconView {
         // 接收传递的颜色
         _color = color,
         // 创建底部导航栏项目
-        item = new BottomNavigationBarItem(
+        item = BottomNavigationBarItem(
             // 项目的图标
             icon: icon,
             // 项目的标题
             title: title
         ),
         // 创建动画控制器
-        controller = new AnimationController(
+        controller = AnimationController(
           // 动画持续的时间长度：默认情况下主题更改动画的持续时间
           duration: kThemeAnimationDuration,
           // 垂直同步
           vsync: vsync,
         ) {
             // 创建曲线动画
-            _animation = new CurvedAnimation(
+            _animation = CurvedAnimation(
               // 应用曲线动画的动画
               parent: controller,
               /*
@@ -43,7 +43,7 @@ class NavigationIconView {
               * 到1.0结束
               * 应用的曲线：快速启动并缓和到最终位置的曲线
               */
-              curve: new Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+              curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
             );
           }
 
@@ -91,17 +91,17 @@ class NavigationIconView {
           : themeData.accentColor;
     }
     // 返回值，创建不透明度转换
-    var tween = new Tween<Offset>(
+    var tween = Tween<Offset>(
       // 此变量在动画开头的值
       begin: const Offset(0.0, 0.02),
       // 此变量在动画结尾处的值：左上角
       end: Offset.zero,
     );
-    return new FadeTransition(
+    return FadeTransition(
         // 控制子控件不透明度的动画
         opacity: _animation,
         // 子控件：创建滑动转换过渡
-        child: new SlideTransition(
+        child: SlideTransition(
             /*
             * 控制子控件位置的动画
             * 开始值和结束值之间的线性插值<以尺寸的分数表示的偏移量>
@@ -110,9 +110,9 @@ class NavigationIconView {
             */
             position: tween.animate(_animation), // 返回给定动画，该动画接受由此对象确定的值
             // 子控件：创建控制子控件的颜色，不透明度和大小的图标主题
-            child: new IconTheme(
+            child: IconTheme(
               // 用于子控件中图标的颜色，不透明度和大小
-              data: new IconThemeData(
+              data: IconThemeData(
                 // 图标的默认颜色
                 color: iconColor,
                 // 图标的默认大小
