@@ -109,12 +109,6 @@ class Novice extends StatelessWidget {
                   child: Container(
                     // symmetric vertical上下 horizontal左右
                     padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
-                    decoration: BoxDecoration(
-                      // color: Colors.green,
-                      border: Border(
-                        bottom: BorderSide(width: 0.5, color: Color(0xffdddddd))
-                      )
-                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../model/items.dart';
 
-class ItemsView extends StatelessWidget {
-  ItemsView({Key key, this.items}) : super(key : key);
+class BtnItems extends StatelessWidget {
+  BtnItems({Key key, this.items}) : super(key : key);
 
-  List items = [];
+  List<Item> items = [];
 
   @override
   Widget build(BuildContext context) {
