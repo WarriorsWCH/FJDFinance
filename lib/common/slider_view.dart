@@ -48,7 +48,7 @@ class SliderView extends StatelessWidget {
               );
         })),   
         // 自动播放开关
-        autoplay:true,
+        autoplay: true,
       ),
     );
   }

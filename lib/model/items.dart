@@ -1,5 +1,6 @@
 class Item {
   String img;
   String text;
-  Item(this.img, this.text);
+  String sub;
+  Item(this.img, this.text, this.sub);
 }
