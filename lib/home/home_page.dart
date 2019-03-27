@@ -6,7 +6,7 @@ import './novice.dart';
 import '../common/one_image.dart';
 import '../model/items.dart';
 import '../model/money.dart';
-import './money.dart';
+import '../common/money.dart';
 import './product.dart';
 import '../common/footer.dart';
 
@@ -106,5 +106,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
     );
+  
   }
 }

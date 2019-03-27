@@ -18,7 +18,7 @@ class SliderView extends StatelessWidget {
         itemBuilder: (BuildContext context,int index){
           return Image.network(imgs[index],fit: BoxFit.fill,);
         },
-        itemCount: 3,
+        itemCount: imgs.length,
         // 设置 SwiperPagination() 展示默认分页指示器
         pagination: SwiperPagination(
             margin: EdgeInsets.all(0.0),
