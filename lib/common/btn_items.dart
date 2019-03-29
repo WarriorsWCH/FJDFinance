@@ -15,7 +15,7 @@ class BtnItems extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(0, top, 0, bottom),
       color: bgcolor,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(items.length, (index) {
           return Expanded(

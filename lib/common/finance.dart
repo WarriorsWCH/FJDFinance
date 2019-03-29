@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../model/items.dart';
 
 class Finance extends StatelessWidget {
-  Finance({Key key, this.list}) : super(key: key);
+  Finance({Key key, this.list, this.color}) : super(key: key);
 
   final List<Item> list;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +38,7 @@ class Finance extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(list[index].text,style: TextStyle(fontSize: 18.0),),
-                      Text(list[index].sub, style:TextStyle(fontSize: 12.0,color: Color(0xffff3232)),)
+                      Text(list[index].sub, style:TextStyle(fontSize: 12.0,color:color),)
                     ],
                   ),
                   Spacer(),

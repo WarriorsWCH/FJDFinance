@@ -33,7 +33,7 @@ class _MoneyPageState extends State<MoneyPage> {
   @override // 重写
   Widget build(BuildContext context) {
     // 返回一个Material风格的组件
-      return Container(
+    return Container(
         color: Color(0xfff5f5f5),
         child: SingleChildScrollView(
           child: Column(
@@ -60,7 +60,7 @@ class _MoneyPageState extends State<MoneyPage> {
               Panel(
                 title: '理财精选'
               ),
-              Finance(list:items),
+              Finance(list:items, color: Color(0xffff3232),),
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t7162/219/4755741/18941/4e51a5aa/597b066dNf6c7a972.jpg?width=750&height=120',
                 height: 60.0,
