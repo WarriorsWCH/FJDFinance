@@ -34,8 +34,11 @@ class _IousPageState extends State<IousPage> {
   Item('http://img12.360buyimg.com/jrpmobile/jfs/t4150/330/141981421/9147/604e3e04/58affc3bNbfa8f9d7.jpg?width=120&height=120', '白条闪付', '新手享158元礼包'),
   Item('http://img12.360buyimg.com/jrpmobile/jfs/t4270/96/1102370053/8651/58b7fa5a/58bd2e10N453e9464.jpg?width=120&height=120', '白条提额', '金融app专享提额礼包'),];
 
+  double screenWidth = 0;
   @override // 重写
   Widget build(BuildContext context) {
+    this.screenWidth = MediaQuery.of(context).size.width;
+
     // 返回一个Material风格的组件
     return Container(
         color: Color(0xfff5f5f5),
@@ -43,7 +46,8 @@ class _IousPageState extends State<IousPage> {
           child: Column(
             children: <Widget>[
               SliderView(
-                imgs: imgs
+                imgs: imgs,
+                imgHeight: screenWidth*137/320,
               ),
               Panel(
                 title: '白条福利'
@@ -64,7 +68,7 @@ class _IousPageState extends State<IousPage> {
               ),
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t7162/219/4755741/18941/4e51a5aa/597b066dNf6c7a972.jpg?width=750&height=120',
-                height: 60.0,
+                height: screenWidth*50/320,
                 marginTop: 10.0,
               ),
               Footer()

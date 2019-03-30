@@ -48,8 +48,12 @@ class _HomePageState extends State<HomePage> {
     'http://img12.360buyimg.com/jrpmobile/jfs/t14125/310/1997192193/46667/3c910f8b/5a2f6a36Nad95b650.jpg?width=335&height=421',
     'http://img12.360buyimg.com/jrpmobile/jfs/t15784/188/381232069/39444/8878571d/5a2f6a4aNbd5a574c.jpg?width=335&height=421'
   ];
+
+  double screenWidth = 0;
   @override // 重写
   Widget build(BuildContext context) {
+    this.screenWidth = MediaQuery.of(context).size.width;
+
     // 返回一个Material风格的组件
     return Container(
         color: Color(0xfff5f5f5),
@@ -57,7 +61,8 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               SliderView(
-                imgs: imgs
+                imgs: imgs,
+                imgHeight: screenWidth*137/320,
               ),
               BtnItems(
                 items: items1,
@@ -74,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t12721/42/2497849749/26333/ec584be4/5a421756N2416c88f.png?width=750&height=280',
                 bottom: 20.0,
-                height: 139.0,
+                height: screenWidth*139/320,
               ),
               Panel(
                 title: '理财精选'
@@ -98,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               ),
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t2842/350/3035567089/14791/5f6ff93d/577cf395N31e76288.png?width=1125&height=252',
-                height: 72.0,
+                height: screenWidth*72/320,
                 marginTop: 10.0,
               ),
               Footer()

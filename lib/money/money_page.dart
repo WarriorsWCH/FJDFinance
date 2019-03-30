@@ -29,9 +29,12 @@ class _MoneyPageState extends State<MoneyPage> {
   List<Item> items = [Item('http://img12.360buyimg.com/jrpmobile/jfs/t3670/58/543125556/2606/a65096b9/580d80afN63b1085a.png?width=76&height=76', '月度理财', '预期年化收益率4.50%'),
   Item('http://img12.360buyimg.com/jrpmobile/jfs/t3679/44/511862277/2728/c1c6b2bf/580d8189N6b6f8052.png?width=76&height=76', '季度理财', '历史年化回报率5.50%'),
   Item('http://img12.360buyimg.com/jrpmobile/jfs/t3331/69/580199498/3074/d5bb21c5/580d7f6cN7f35e596.png?width=76&height=76', '一年理财', '历史年化回报率5.80%'),];
-
+  
+  double screenWidth = 0;
   @override // 重写
   Widget build(BuildContext context) {
+    this.screenWidth = MediaQuery.of(context).size.width;
+
     // 返回一个Material风格的组件
     return Container(
         color: Color(0xfff5f5f5),
@@ -39,12 +42,13 @@ class _MoneyPageState extends State<MoneyPage> {
           child: Column(
             children: <Widget>[
               SliderView(
-                imgs: imgs
+                imgs: imgs,
+                imgHeight: screenWidth*137/320,
               ),
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t5842/235/8356236245/38364/2112fd7e/597a95d4Ne01da140.png?width=750&height=270',
                 marginTop: 10.0,
-                height: 135.0,
+                height: screenWidth*115/320,
               ),
               Panel(
                 title: '银行精选'
@@ -54,7 +58,7 @@ class _MoneyPageState extends State<MoneyPage> {
               ),
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t10876/23/2566835181/40527/d7d27c08/59f97d68Ne53fda5b.png?width=1080&height=240',
-                height: 71.0,
+                height: screenWidth*71/320,
                 marginTop: 10.0,
               ),
               Panel(
@@ -63,7 +67,7 @@ class _MoneyPageState extends State<MoneyPage> {
               Finance(list:items, color: Color(0xffff3232),),
               OneImage(
                 img: 'http://img12.360buyimg.com/jrpmobile/jfs/t7162/219/4755741/18941/4e51a5aa/597b066dNf6c7a972.jpg?width=750&height=120',
-                height: 60.0,
+                height: screenWidth*51/320,
                 marginTop: 10.0,
               ),
               Footer()

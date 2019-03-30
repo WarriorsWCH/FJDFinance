@@ -10,3 +10,4 @@ ios/.generated/
 packages
 .flutter-plugins
 lib/tests
+.project
