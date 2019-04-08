@@ -18,7 +18,7 @@
 
 - 白条
 
-![理财](https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/7.jpg?raw=true)
+<i>![理财](https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/7.jpg?raw=true)</i>
 
 ![理财](https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/8.jpg?raw=true)
 
