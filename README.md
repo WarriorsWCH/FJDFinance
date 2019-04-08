@@ -1,13 +1,10 @@
 # app页面
 
 - 首页
-<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/1.jpg?raw=true" width="160"/>
-
-![首页](https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/2.jpg?raw=true)
-
-![首页](https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/3.jpg?raw=true)
-
-![首页](https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/4.jpg?raw=true)
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/1.jpg?raw=true" width="200" alt="首页"/>
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/2.jpg?raw=true" width="200" alt="首页"/>
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/3.jpg?raw=true" width="200" alt="首页"/>
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/4.jpg?raw=true" width="200" alt="首页"/>
 
 - 理财
 
