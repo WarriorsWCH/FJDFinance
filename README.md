@@ -31,88 +31,31 @@
 <img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/11.jpg?raw=true" width="200" alt="众筹"/>
 </div>
 
-#### 底部导航封装，带动画
+#### 组件封装
 
+- 底部导航栏
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/12.jpg?raw=true" width="300" alt=""/>
+导航条主要使用的是MaterialApp中的bottomNavigationBar，
 ```
-import 'package:flutter/material.dart';
-import '../home/home_page.dart';
-import '../ious/ious_page.dart';
-import '../money/money_page.dart';
-import '../raise/raise_page.dart';
-import 'navigation_icon_view.dart';
+return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                appBarTitles[_currentIndex],
+                style: TextStyle(color: Colors.black),
+              ),
+              backgroundColor: Colors.white,
 
-
-class Index extends StatefulWidget {
-  @override
-  State<Index> createState() => _IndexState();
-}
-
-class _IndexState extends State<Index> with TickerProviderStateMixin {
-
-  // 当前选中的bar
-  int _currentIndex = 0;
-  List<NavigationIconView> _navigationViews = List();
-  List<StatefulWidget> _pageList;
-  StatefulWidget _currentPage;
-
-  List<String> appBarTitles = ['首页', '理财', '白条', '众筹'];
-  List<String> appBarIcons = ['images/home.png','images/money.png',
-  'images/ious.png','images/raise.png'];
-  
-  /*
-  * 在对象插入到树中时调用
-  * 框架将为它创建的每个State（状态）对象调用此方法一次
-  * 覆盖此方法可以实现此对象被插入到树中的位置的初始化
-  * 或用于配置此对象上的控件的位置的初始化
-  */
-  @override
-  void initState() {
-    super.initState();
-    // 循环存储NavigationIconView类的列表里添加内容
-    for (var i = 0; i < 4; i++) {
-      _navigationViews.add(NavigationIconView(
-        icon: Image.asset(appBarIcons[i], width: 24.0, height: 24.0),
-        title: Text(appBarTitles[i]),
-        vsync: this,
-      ));
-    }
-    // 循环调用存储NavigationIconView类的列表的值
-    for (NavigationIconView view in _navigationViews) {
-      // 每次动画控制器的值更改时调用侦听器
-      view.controller.addListener(_rebuild);
-      // 底部导航栏当前选择的动画控制器的值为1.0
-      _navigationViews[_currentIndex].controller.value = 1.0;
-    }
-
-    _pageList = <StatefulWidget>[
-      HomePage(),
-      MoneyPage(),
-      IousPage(),
-      RaisePage()
-    ];
-    _currentPage =_pageList[_currentIndex];
-  }
-
-  // 动画控制器的值更改时的操作
-  void _rebuild() {
-    // 通知框架此对象的内部状态已更改
-    setState(() {
-      // 重建，以便为视图创建动画
-    });
-  }
-
-  // 释放此对象使用的资源
-  @override
-  void dispose() {
-    super.dispose();
-    for (NavigationIconView view in _navigationViews) {
-      // 调用此方法后，对象不再可用
-      view.controller.dispose();
-    }
-  }
-  
-  @override
-  Widget build(BuildContext context) {
+            ),
+            body: Center(
+              child: _currentPage,
+            ),
+            bottomNavigationBar: bottomNavigationBar,
+        ),
+      );
+```
+创建底部导航栏,通过迭代存储NavigationIconView类的列表关联四个页面
+```
     // 局部变量，创建底部导航栏
     final BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
       /*
@@ -141,28 +84,9 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
           });
         },
     );
-
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                appBarTitles[_currentIndex],
-                style: TextStyle(color: Colors.black),
-              ),
-              backgroundColor: Colors.white,
-
-            ),
-            body: Center(
-              child: _currentPage,
-            ),
-            bottomNavigationBar: bottomNavigationBar,
-        ),
-      );
-  }
-}
-
 ```
 
+通过自定义NavigationIconView来实现动画效果，点击每个导航项相应的文字有变大效果
 ```
 import 'package:flutter/material.dart';
 
@@ -294,11 +218,12 @@ class NavigationIconView {
 
 ```
 
-#### 轮播图封装
+- 轮播图封装
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/13.jpg?raw=true" width="300" alt=""/>
+轮播图主要是使用的是第三方flutter_swiper插件，可以自定义分页控制器，简单好用，功能齐全
 ```
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-
 
 class SliderView extends StatelessWidget {
   SliderView({Key key, this.imgHeight: 137.0, this.imgs}) : super(key : key);
@@ -354,48 +279,285 @@ class SliderView extends StatelessWidget {
 
 ```
 
-#### 底部组件封装
+- 通用按钮项
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/14.jpg?raw=true" width="300" alt=""/>
+
+自适应按钮大小，类似前端的flex，主要使用Row、Column、Expanded组合使用
+
 ```
 import 'package:flutter/material.dart';
 import '../model/items.dart';
-import './btn_items.dart';
 
-class Footer extends StatelessWidget {
-  Footer({Key key}) : super(key : key);
+class BtnItems extends StatelessWidget {
+  BtnItems({Key key, @required this.items, this.bgcolor = Colors.white,
+  this.top = 0, this.bottom = 0}) : super(key : key);
 
-  List<Item> items = [
-    Item('http://img12.360buyimg.com/jrpmobile/jfs/t2971/333/1297567079/898/f2d2e00d/577dc28dNe5138337.png?width=108&height=108','客户端', ''),
-    Item('http://img12.360buyimg.com/jrpmobile/jfs/t2824/256/2966087355/831/188bfa25/577cf3dcN18aadbf2.png?width=108&height=108','触屏版', ''),
-    Item('http://img12.360buyimg.com/jrpmobile/jfs/t2920/282/1283157010/1040/23f1430b/577cf3e5N53f740b8.png?width=108&height=108','电脑版', ''),
-  ];
-  List<String> list = ['Copyright © 2004-2017 京东JD.com 版权所有',
-  '投资有风险，购买需谨慎',
-  '京东金融平台服务协议',
-  '京东金融隐私政策'];
+  List<Item> items = [];
+  final double top;
+  final double bottom;
+  final Color bgcolor;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(list.length+1, (index){
-        if (index == 0) {
-          return BtnItems(items: items, top: 10.0, bottom: 15.0,bgcolor: Color(0xFFf5f5f5),);
-        } else {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 12.0),
-            decoration: BoxDecoration(
-              //  color: Colors.white,
-              border: Border(
-                top: BorderSide(width: 0.5,color: Color(0xffdddddd))
-              )
-            ),
-            child: Align(
-              child: Text(
-                list[index-1],
-                style:TextStyle(color: Color(0xFF999999),fontSize: 12.0)
-              ),
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, top, 0, bottom),
+      color: bgcolor,
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(items.length, (index) {
+          return Expanded(
+            // width: 64.0,
+            flex: 1,
+            child: Column(
+              // flex -> just-content -> spaceBetween
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Image.network(items[index].img,width: 45.0, height: 45.0),
+                Container(
+                  margin: EdgeInsets.only(top: 5.0),
+                  child: Text(
+                    items[index].text,
+                    style: TextStyle(fontSize: 13.0),
+                    softWrap: false, //单行
+                    overflow: TextOverflow.ellipsis, //省略号
+                  ),
+                ),
+                 items[index].sub != '' ? Text(
+                  items[index].sub,
+                  style: TextStyle(fontSize: 13.0, color: Color(0xFFFF801A)),
+                ) : Container(height: 0,),
+              ],
             ),
           );
-        }
-      }),
+        }),
+      ),
+    );
+  }
+
+  List<Widget> _buildItem() {
+    List<Widget> list = List();
+    for (var i = 0; i < items.length; i++) {
+      list.add(ConstrainedBox(
+        // 限制每个item的宽高
+        constraints: BoxConstraints.expand(
+          width: 64.0, 
+          height: 67.0
+        ),
+        child: Column(
+          // flex -> just-content -> spaceBetween
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Image.network(items[i].img,width: 45.0, height: 45.0),
+            Text(
+              items[i].text,
+              style: TextStyle(fontSize: 13.0),
+            ),
+            items[i].sub == '' ? Text(
+              items[i].sub,
+              style: TextStyle(fontSize: 13.0, color: Color(0xFFFF801A)),
+            ) : Container(height: 0,),
+          ],
+        ),
+      ));
+    }
+    return list;
+  }
+}
+```
+
+- 首页的理财精选
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/15.jpg?raw=true" width="300" alt=""/>
+
+主要使用的是 ListView.separated()方法，separatorBuilder: (BuildContext context, int index) {}可以设置下划线
+```
+import 'package:flutter/material.dart';
+import '../model/items.dart';
+
+class Finance extends StatelessWidget {
+  Finance({Key key, this.list, this.color}) : super(key: key);
+
+  final List<Item> list;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.only(left: 16.0),
+        height: list.length * 70.0,
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(width: 0.5, color: Color(0xffdddddd))),
+          color: Colors.white,
+        ),
+        child: ListView.separated(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: list.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              // color: Colors.red,
+              padding: EdgeInsets.fromLTRB(0, 10.0, 15.0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(right: 16.0),
+                    child: Image.network(
+                      list[index].img,
+                      width: 44.0,
+                      height: 44.0,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(list[index].text,style: TextStyle(fontSize: 18.0),),
+                      Text(list[index].sub, style:TextStyle(fontSize: 12.0,color:color),)
+                    ],
+                  ),
+                  Spacer(),
+                  Text(
+                    '去赚钱 >',
+                    style: TextStyle(fontSize: 14.0,color: Color(0xffFF801A)),
+                  )
+                ],
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider(
+              color: Color(0xffdddddd),
+              indent: 60.0,
+            );
+          },
+        ));
+  }
+}
+
+```
+
+- 众筹页的理财精选
+<img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/16.jpg?raw=true" width="300" alt=""/>
+
+主要是定位的使用，Stack和Positioned
+```
+import 'package:flutter/material.dart';
+import '../model/ins.dart';
+
+class In extends StatelessWidget {
+  In({Key key, this.list}) : super (key : key);
+
+  List<Ins> list;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(bottom: 20),
+      child: Row(
+        children: List.generate(list.length, (index) {
+          return Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Stack(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      // height: 22.0,
+                    ),
+                    Positioned(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        color:  Color(0XFFC1C1C1),
+                        child: Text(
+                          '精选',
+                          style: TextStyle(
+                            // backgroundColor: Color(0XFFC1C1C1),
+                            color: Color(0xffff0000),
+                            fontSize: 10.0,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Image.network(list[index].img,width: 90,height: 90,),
+                ),
+                Text(
+                  list[index].title,
+                  style:TextStyle(
+                    fontSize: 14.0,
+                    color:Color(0xff444444),
+                    fontWeight: FontWeight.bold
+                  )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      '￥${list[index].price}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xffFF3232),
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(
+                      '起',
+                      style: TextStyle(fontSize: 10,color: Color(0xff999999),fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          Container(
+                            height: 5.0,
+                            width: 72,
+                            decoration: BoxDecoration(
+                              color: Color(0xffF6E6E6),
+                              borderRadius: BorderRadius.circular(11)
+                            ),
+                          ),
+                          Positioned(
+                            child: Container(
+                              height: 5,
+                              width: list[index].progress >= 100 ? 72 : 72 * list[index].progress/100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(11),
+                                gradient: LinearGradient(
+                                colors: [
+                                  Color(0xFFFF5555),
+                                  Color(0xFFFF9C31),
+                                ],
+                                begin: FractionalOffset(1, 0),
+                                end: FractionalOffset(0, 1)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Text(
+                        '${list[index].progress}%',
+                        style:TextStyle(fontSize: 12,color:Color(0xff999999))
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }
