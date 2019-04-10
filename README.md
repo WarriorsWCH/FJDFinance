@@ -35,58 +35,63 @@
 
 - 底部导航栏
 <img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/12.jpg?raw=true" width="300" alt=""/>
+
 导航条主要使用的是MaterialApp中的bottomNavigationBar，
+
 ```
 return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                appBarTitles[_currentIndex],
-                style: TextStyle(color: Colors.black),
-              ),
-              backgroundColor: Colors.white,
-
-            ),
-            body: Center(
-              child: _currentPage,
-            ),
-            bottomNavigationBar: bottomNavigationBar,
+  home: Scaffold(
+      appBar: AppBar(
+        title: Text(
+          appBarTitles[_currentIndex],
+          style: TextStyle(color: Colors.black),
         ),
-      );
+        backgroundColor: Colors.white,
+
+      ),
+      body: Center(
+        child: _currentPage,
+      ),
+      bottomNavigationBar: bottomNavigationBar,
+  ),
+);
 ```
+
 创建底部导航栏,通过迭代存储NavigationIconView类的列表关联四个页面
+
 ```
-    // 局部变量，创建底部导航栏
-    final BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
-      /*
-      * 在底部导航栏中布置的交互项：迭代存储NavigationIconView类的列表
-      * 返回此迭代的每个元素的底部导航栏项目
-      * 创建包含此迭代的元素的列表
-      */
-        items: _navigationViews.map(
-          (NavigationIconView navigationIconView) => navigationIconView.item
-        ).toList(),
-        // 当前活动项的索引：存储底部导航栏的当前选择
-        currentIndex: _currentIndex,
-        // 当前活动项的颜色
-        fixedColor: Colors.red,
-        // 底部导航栏的布局和行为：存储底部导航栏的布局和行为
-        type: BottomNavigationBarType.fixed,
-        // 当点击项目时调用的回调
-        onTap: (int index) {
-          setState(() {
-            // 当前选择的底部导航栏项目，开始反向运行此动画
-            _navigationViews[_currentIndex].controller.reverse();
-            _currentIndex = index;
-            // 当前选择的底部导航栏项目，开始向前运行此动画
-            _navigationViews[_currentIndex].controller.forward();
-            _currentPage =_pageList[_currentIndex];
-          });
-        },
-    );
+// 局部变量，创建底部导航栏
+final BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
+  /*
+  * 在底部导航栏中布置的交互项：迭代存储NavigationIconView类的列表
+  * 返回此迭代的每个元素的底部导航栏项目
+  * 创建包含此迭代的元素的列表
+  */
+    items: _navigationViews.map(
+      (NavigationIconView navigationIconView) => navigationIconView.item
+    ).toList(),
+    // 当前活动项的索引：存储底部导航栏的当前选择
+    currentIndex: _currentIndex,
+    // 当前活动项的颜色
+    fixedColor: Colors.red,
+    // 底部导航栏的布局和行为：存储底部导航栏的布局和行为
+    type: BottomNavigationBarType.fixed,
+    // 当点击项目时调用的回调
+    onTap: (int index) {
+      setState(() {
+        // 当前选择的底部导航栏项目，开始反向运行此动画
+        _navigationViews[_currentIndex].controller.reverse();
+        _currentIndex = index;
+        // 当前选择的底部导航栏项目，开始向前运行此动画
+        _navigationViews[_currentIndex].controller.forward();
+        _currentPage =_pageList[_currentIndex];
+      });
+    },
+);
 ```
 
 通过自定义NavigationIconView来实现动画效果，点击每个导航项相应的文字有变大效果
+
 ```
 import 'package:flutter/material.dart';
 
@@ -136,8 +141,6 @@ class NavigationIconView {
               curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
             );
           }
-
-
 
   // 类成员，存储图标
   final Widget _icon;
@@ -220,7 +223,9 @@ class NavigationIconView {
 
 - 轮播图封装
 <img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/13.jpg?raw=true" width="300" alt=""/>
+
 轮播图主要是使用的是第三方flutter_swiper插件，可以自定义分页控制器，简单好用，功能齐全
+
 ```
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -280,6 +285,7 @@ class SliderView extends StatelessWidget {
 ```
 
 - 通用按钮项
+
 <img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/14.jpg?raw=true" width="300" alt=""/>
 
 自适应按钮大小，类似前端的flex，主要使用Row、Column、Expanded组合使用
@@ -366,9 +372,11 @@ class BtnItems extends StatelessWidget {
 ```
 
 - 首页的理财精选
+
 <img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/15.jpg?raw=true" width="300" alt=""/>
 
 主要使用的是 ListView.separated()方法，separatorBuilder: (BuildContext context, int index) {}可以设置下划线
+
 ```
 import 'package:flutter/material.dart';
 import '../model/items.dart';
@@ -435,9 +443,11 @@ class Finance extends StatelessWidget {
 ```
 
 - 众筹页的理财精选
+
 <img src="https://github.com/WarriorsWCH/FJDFinance/blob/master/UI/16.jpg?raw=true" width="300" alt=""/>
 
 主要是定位的使用，Stack和Positioned
+
 ```
 import 'package:flutter/material.dart';
 import '../model/ins.dart';
